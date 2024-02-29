@@ -20,7 +20,7 @@ export default function AppShell({
       </Card>
       <Card className='col-span-3 h-full overflow-hidden'>
         <CardHeader>
-          <CardTitle>Movies</CardTitle>
+          <CardTitle>Movies {Date.now()}</CardTitle>
         </CardHeader>
         <CardContent className='h-full overflow-hidden'>
           <MoviesList searchParams={searchParams} />
@@ -36,15 +36,4 @@ export default function AppShell({
       </Card>
     </div>
   );
-  // return (
-  //   <Card className='col-span-1 overflow-x-hidden overflow-y-auto'>
-  //           <CardHeader>
-  //             <CardTitle>Filter</CardTitle>
-  //           </CardHeader>
-  //           <CardContent>
-  //             <Genres />
-  //           </CardContent>
-  //         </Card>
-  //         <div className='col-span-5 h-full overflow-hidden'>{children}</div>
-  // );
 }
