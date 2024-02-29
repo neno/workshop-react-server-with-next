@@ -20,17 +20,7 @@ export default function RootLayout({
   return (
     <html lang='en'>
       <body className={cn('dark', GeistSans.className)}>
-        <main className='h-[100dvh] w-full grid grid-cols-6 gap-2 p-4 overflow-hidden'>
-          <Card className='col-span-1 overflow-x-hidden overflow-y-auto'>
-            <CardHeader>
-              <CardTitle>Filter</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <Genres />
-            </CardContent>
-          </Card>
-          <div className='col-span-5 h-full overflow-hidden'>{children}</div>
-        </main>
+        <main className='h-[100dvh] w-full p-4'>{children}</main>
       </body>
     </html>
   );

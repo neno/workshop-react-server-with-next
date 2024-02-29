@@ -15,3 +15,11 @@ export const getImageUrl = (path: string | null, size: string = 'original'): str
 export function clsxm(...classes: ClassValue[]) {
   return twMerge(clsx(...classes));
 }
+
+export function createGenresSearchParams(searchParams: URLSearchParams, formData: FormData): URLSearchParams {
+  const genresIds = formData.getAll('genres');
+
+  const params = new URLSearchParams(searchParams);
+  params.set('genres', genresIds.join(','));
+  return params;
+}

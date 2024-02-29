@@ -8,15 +8,6 @@ const nextConfig = {
       },
     ],
   },
-  redirects() {
-    return [
-      {
-        source: '/',
-        destination: '/movies',
-        permanent: false,
-      },
-    ];
-  },
 };
 
 export default nextConfig;
