@@ -31,7 +31,7 @@ export async function MovieDetails({ searchParams }: SearchParamsType) {
       <small>{release_date}</small>
       <p className=''>{overview}</p>
       <ul className='flex gap-4'>
-        {genres.map((genre) => (
+        {genres?.map((genre) => (
           <li key={genre.id}>
             <Badge>{genre.name}</Badge>
           </li>
