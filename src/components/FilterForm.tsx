@@ -7,6 +7,7 @@ import { Checkbox } from './ui/checkbox';
 import { Label } from './ui/label';
 import { revalidateMovies } from '@/data/actions';
 import { createGenresSearchParams } from '@/lib/helpers';
+import { Button } from './ui/button';
 
 export const FilterForm = ({ genres }: { genres: IGenre[] }) => {
   console.log('FilterForm');
@@ -41,6 +42,9 @@ export const FilterForm = ({ genres }: { genres: IGenre[] }) => {
           </li>
         ))}
       </ul>
+      <Button type='submit' className='mt-4 w-full'>
+        Apply Filter
+      </Button>
     </form>
   );
 };
