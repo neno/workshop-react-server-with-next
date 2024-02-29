@@ -11,21 +11,20 @@ export async function MovieDetails({ searchParams }: SearchParamsType) {
     return null;
   }
 
-  const { backdrop_path, poster_path, title, genres, overview, release_date } =
-    movie;
+  const { backdrop_path, title, genres, overview, release_date } = movie;
 
   return (
     <div className='relative w-full h-full flex flex-col gap-6'>
       {backdrop_path && (
-        <Image
-          className='max-w-full object-cover'
-          width={600}
-          height={600}
-          src={getImageUrl(backdrop_path)}
-          alt={title || ''}
-          priority={true}
-          quality={75}
-        />
+        <div className='relative aspect-video w-full'>
+          <Image
+            fill
+            src={getImageUrl(backdrop_path)}
+            alt={title || ''}
+            priority={true}
+            quality={75}
+          />
+        </div>
       )}
       <h4 className='font-semibold text-xl'>{title}</h4>
       <small>{release_date}</small>
