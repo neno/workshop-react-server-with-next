@@ -2,12 +2,16 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Genres } from './genres';
 import { MoviesList } from '@/components/movies-list';
 import { MovieDetails } from '@/components/movie-details';
+import { seedCache } from '@/lib/api';
+import { Suspense } from 'react';
 
-export default function AppShell({
+export default async function AppShell({
   searchParams,
 }: {
   searchParams: { genres?: string; id?: string };
 }) {
+  seedCache();
+
   return (
     <div className='h-full grid grid-cols-6 gap-4'>
       <Card className='col-span-1'>
@@ -23,7 +27,9 @@ export default function AppShell({
           <CardTitle>Movies {Date.now()}</CardTitle>
         </CardHeader>
         <CardContent className='h-full overflow-hidden'>
-          <MoviesList searchParams={searchParams} />
+          <Suspense fallback={<p>Loading movies...</p>}>
+            <MoviesList searchParams={searchParams} />
+          </Suspense>
         </CardContent>
       </Card>
       <Card className='col-span-2'>

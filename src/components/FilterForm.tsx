@@ -2,7 +2,7 @@
 
 import { IGenre } from '@/models/genre';
 import { useSearchParams } from 'next/navigation';
-import { useCallback, useRef } from 'react';
+import { useCallback, useRef, useTransition } from 'react';
 import { Checkbox } from './ui/checkbox';
 import { Label } from './ui/label';
 import { revalidateMovies } from '@/data/actions';
@@ -11,17 +11,20 @@ import { Button } from './ui/button';
 
 export const FilterForm = ({ genres }: { genres: IGenre[] }) => {
   console.log('FilterForm');
+  const [isPending, startTransition] = useTransition();
 
   const searchParams = useSearchParams();
   const formRef = useRef<HTMLFormElement>(null);
   const initalGenres = searchParams.get('genres')?.split(',') ?? [];
 
   const handleFilter = useCallback(() => {
-    const formData = new FormData(formRef.current!);
-    const params = createGenresSearchParams(searchParams, formData);
+    startTransition(() => {
+      const formData = new FormData(formRef.current!);
+      const params = createGenresSearchParams(searchParams, formData);
 
-    window.history.pushState(null, '', `?${params.toString()}`);
-    formRef.current?.requestSubmit();
+      window.history.pushState(null, '', `?${params.toString()}`);
+      formRef.current?.submit();
+    });
   }, [searchParams]);
 
   return (
@@ -42,9 +45,6 @@ export const FilterForm = ({ genres }: { genres: IGenre[] }) => {
           </li>
         ))}
       </ul>
-      <Button type='submit' className='mt-4 w-full'>
-        Apply Filter
-      </Button>
     </form>
   );
 };
