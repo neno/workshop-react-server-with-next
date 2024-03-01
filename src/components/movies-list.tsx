@@ -5,7 +5,7 @@ import { SearchParamsType } from '@/models/params';
 import { ScrollArea } from './ui/scroll-area';
 
 export async function MoviesList({ searchParams }: SearchParamsType) {
-  await new Promise((resolve) => setTimeout(resolve, 2000));
+  // await new Promise((resolve) => setTimeout(resolve, 2000));
   const movies = await getMoviesByGenreIds(searchParams.genres);
 
   console.log('render movies-list');
