@@ -5,8 +5,6 @@ import Image from 'next/image';
 import { Badge } from './ui/badge';
 
 export async function MovieDetails({ searchParams }: SearchParamsType) {
-  console.log('render movie-details');
-
   const movie = await getMovieById(Number(searchParams.id));
 
   if (!movie) {

@@ -7,24 +7,18 @@ import { Checkbox } from './ui/checkbox';
 import { Label } from './ui/label';
 import { revalidateMovies } from '@/data/actions';
 import { createGenresSearchParams } from '@/lib/helpers';
-import { Button } from './ui/button';
 
 export const FilterForm = ({ genres }: { genres: IGenre[] }) => {
-  console.log('FilterForm');
-  const [isPending, startTransition] = useTransition();
-
   const searchParams = useSearchParams();
   const formRef = useRef<HTMLFormElement>(null);
   const initalGenres = searchParams.get('genres')?.split(',') ?? [];
 
   const handleFilter = useCallback(() => {
-    startTransition(() => {
-      const formData = new FormData(formRef.current!);
-      const params = createGenresSearchParams(searchParams, formData);
+    const formData = new FormData(formRef.current!);
+    const params = createGenresSearchParams(searchParams, formData);
 
-      window.history.pushState(null, '', `?${params.toString()}`);
-      formRef.current?.submit();
-    });
+    window.history.pushState(null, '', `?${params.toString()}`);
+    formRef.current?.submit();
   }, [searchParams]);
 
   return (

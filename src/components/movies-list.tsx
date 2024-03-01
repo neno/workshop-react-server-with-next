@@ -8,8 +8,6 @@ export async function MoviesList({ searchParams }: SearchParamsType) {
   // await new Promise((resolve) => setTimeout(resolve, 2000));
   const movies = await getMoviesByGenreIds(searchParams.genres);
 
-  console.log('render movies-list');
-
   const createUrl = (id: number) => {
     const params = new URLSearchParams(searchParams);
     params.set('id', id.toString());

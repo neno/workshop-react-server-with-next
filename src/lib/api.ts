@@ -4,8 +4,6 @@ import { FullMovieData } from '@/models/full-movie-data';
 import { IGenre } from '@/models/genre';
 import { IMovie } from '@/models/movie';
 import { IApiSearchResult } from '@/models/search-results';
-import { get } from 'http';
-import { Url } from 'next/dist/shared/lib/router/router';
 
 type UrlProps = {
   path: string;
@@ -63,24 +61,20 @@ export async function getAllGenres(): Promise<IGenre[]> {
 }
 
 export async function getMoviesByGenreIds(movieIds = ''): Promise<IMovie[]> {
-  // console.log('getMoviesByGenreIds', movieIds);
-
   const cache = cacheGet(movieIds);
 
   if (cache) {
-    console.log('***** CACHED MOVIES ******', movieIds);
     return cache;
   }
 
   const { results } = await fetchData({ path: 'discover/movie', params: `with_genres=${movieIds}`, tags: ['moviesByGenres'] });
   cacheSet(movieIds, results.length > 0 ? results : []);
-  console.log('***** FETCHED MOVIES ******', movieIds);
   return results;
 }
 
 export async function seedCache() {
   if (cacheSize() === 0) {
-    const allGenres = getAllGenres().then((genres) => {
+    getAllGenres().then((genres) => {
       for (const genre of genres) {
         getMoviesByGenreIds(genre.id.toString()).then((movies) => {
           cacheSet(genre.id.toString(), movies);
